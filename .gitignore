@@ -27,3 +27,9 @@
 *.exe
 *.out
 *.app
+
+# Qt Creator
+PointVsPolygon.pro.*
+
+# Temp
+*~

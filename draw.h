@@ -17,8 +17,9 @@ private:
     TPolygons pols;
     QPointF cursor;
     bool ignoreDrawPols;
-    QVector<position> results;
+    QVector<bool> results;
     bool draw_what;
+
 
 public:
     int typeAlgorithms;

@@ -18,7 +18,7 @@ private:
     QPointF cursor;
     bool ignoreDrawPols;
     QVector<bool> results;
-    bool draw_what;
+    bool draw_what = false;
 
 
 public:
@@ -27,6 +27,8 @@ public:
     explicit Draw(QWidget *parent = 0);
     void mousePressEvent(QMouseEvent *e);
     void paintEvent(QPaintEvent *e);
+    QPoint generatePoint();
+    void generatePolygons(int n);
     void setDrawWhat(bool draw_what_){ draw_what = draw_what_; }
     QPointF & getCursor(){ return cursor; }
 

@@ -17,18 +17,22 @@ void Draw::mousePressEvent(QMouseEvent *e)
     QPointF q(x,y);
 
     results.clear();
+    position status;
     // Call algorithms
     // TODO: if ray or winding
     for(int i=0; i<pols.size(); i++){
-        position status = Algorithms::rayAlgorithm(q, pols[i]);
+        if (draw_what)
+            status = Algorithms::windingAlgorithm(q, pols[i]);
+        else
+            status = Algorithms::rayAlgorithm(q, pols[i]);
 
         if (status == IN || status == ON)
             results.push_back(true);
         else
             results.push_back(false);
-
-        qDebug() << "position: " << status;
         qDebug() << "winding?: " << draw_what;
+        qDebug() << "position: " << status;
+
     }
 
 
@@ -36,6 +40,21 @@ void Draw::mousePressEvent(QMouseEvent *e)
     ignoreDrawPols = true;
     repaint();
 
+}
+
+QPoint Draw::generatePoint()
+{
+    QPoint point(rand()%400,rand()%400);
+
+    return point;
+}
+
+void Draw::generatePolygons(int n){
+    TPolygon gen_points;
+    for (int i=0;i<n;i++)
+    {
+        gen_points.push_back(generatePoint());
+    }
 }
 
 
@@ -52,6 +71,8 @@ void Draw::paintEvent(QPaintEvent *e)
     pol.clear();
     pols.clear();
     results.clear();
+//    generatePolygons(10);
+
     QPointF p1(0,rand()%100);QPointF p2(100,100);QPointF p3(200,0);QPointF p4(100,50);
     pol.push_back(p1);
     pol.push_back(p2);

@@ -123,11 +123,14 @@ position Algorithms::windingAlgorithm(const QPointF &q, TPolygon P)
         else if (pos == 0)
             sum -= omega;
     }
+    const double pi = atan(1.0);
     const double epsilon = 1.0e-10;
     if (fabs(sum) < epsilon)
+        return OUT;
+    if ((fabs(sum)-fabs(2*pi)) < epsilon)
         return IN;
     else
-        return OUT;
+        return ON;
 
 }
 

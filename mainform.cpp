@@ -6,6 +6,7 @@ MainForm::MainForm(QWidget *parent) :
     ui(new Ui::MainForm)
 {
     ui->setupUi(this);
+
 }
 
 MainForm::~MainForm()
@@ -15,5 +16,14 @@ MainForm::~MainForm()
 
 void MainForm::on_pushGenerate_clicked()
 {
+    //draw_what = ui->buttonGroup->checkedId();
+    //qDebug() << "TYPE -" << typeAlgorithms;
+
+
     repaint();
+}
+
+void MainForm::on_comboBox_currentIndexChanged(int index)
+{
+    ui->canvas->setDrawWhat(index);
 }

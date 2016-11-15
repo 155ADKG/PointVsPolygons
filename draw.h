@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QtGui>
+#include "algorithms.h"
 
 
 typedef QVector<QPointF> TPolygon;
@@ -16,16 +17,17 @@ private:
     TPolygons pols;
     QPointF cursor;
     bool ignoreDrawPols;
-    QVector<int> results;
-public:
-    explicit Draw(QWidget *parent = 0);
+    QVector<position> results;
+    bool draw_what;
 
+public:
+    int typeAlgorithms;
+
+    explicit Draw(QWidget *parent = 0);
     void mousePressEvent(QMouseEvent *e);
     void paintEvent(QPaintEvent *e);
-
-    TPolygons & getPols(){return pols;}
-
-    QPointF & getCursor(){return cursor;}
+    void setDrawWhat(bool draw_what_){ draw_what = draw_what_; }
+    QPointF & getCursor(){ return cursor; }
 
 signals:
 

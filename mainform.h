@@ -3,9 +3,6 @@
 
 #include <QWidget>
 
-
-
-
 namespace Ui {
 class MainForm;
 }
@@ -21,6 +18,8 @@ public:
 
 private slots:
     void on_pushGenerate_clicked();
+
+    void on_comboBox_currentIndexChanged(int index);
 
 private:
     Ui::MainForm *ui;

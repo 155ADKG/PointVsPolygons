@@ -12,14 +12,18 @@ int Algorithms::getPointLinePosition(const QPointF &p, const QPointF &p1, const 
     const double uy = p2.y() - p1.y();
     const double vx = p.x() - p1.x();
     const double vy = p.y() - p1.y();
-//Test criterion
+
+    //Test criterion
     const double t = ux*vx - vx*uy;
-//P is in the left halfplpane
+
+    //P is in the left halfplpane
     if (t<0)
         return 1;
+
     //P is in the right halfplpane
     if (t>0)
         return 0;
+
     //P is on the edge
     return -1;
 }
@@ -37,7 +41,7 @@ double Algorithms::getTwoVectorsOrientation(const QPointF &p1, const QPointF &p2
 
 }
 
-int Algorithms::rayAlgorithm(const QPointF &q, TPolygon P)
+position Algorithms::rayAlgorithm(const QPointF &q, TPolygon P)
 {
     unsigned int n_intersections = 0;
     unsigned int n = P.size();
@@ -62,9 +66,8 @@ int Algorithms::rayAlgorithm(const QPointF &q, TPolygon P)
 
             //Intersection
             double y = (xii*yi-xi*yii)/(xii-xi);
-            qDebug()<<"y: "<< y;
             if (fabs(y)<1.0e-10)
-                return -1;
+                return ON;
 
 
         }
@@ -73,11 +76,10 @@ int Algorithms::rayAlgorithm(const QPointF &q, TPolygon P)
 
             //Intersection
             double x = (xi*yii-xii*yi)/(yii-yi);
-            qDebug()<< "x: " << x;
 
             //Intersection exists
             if (fabs(x)<1.0e-10)
-                return -1;
+                return ON;
             if (x>0)
                 n_intersections++;
 
@@ -85,18 +87,17 @@ int Algorithms::rayAlgorithm(const QPointF &q, TPolygon P)
         }
 
     }
-    qDebug()<< "intersections: "<<n_intersections;
     //q inside P
     if (n_intersections%2)
-        return 1;
+        return IN;
     //q outside P
     else
-        return 0;
+        return OUT;
 
 
 }
 
-int Algorithms::windingAlgorithm(const QPointF &q, TPolygon P)
+position Algorithms::windingAlgorithm(const QPointF &q, TPolygon P)
 {
 
     unsigned int n_intersections = 0;
@@ -113,20 +114,20 @@ int Algorithms::windingAlgorithm(const QPointF &q, TPolygon P)
         double omega = getTwoVectorsOrientation(q, P[i], q, P[i+1]);
 
         //Get position of q according to Pi, Pi+1
-        int position = getPointLinePosition(q, P[i], P[i+1]);
+        int pos = getPointLinePosition(q, P[i], P[i+1]);
 
         //q is on left halfplane
-        if (position > 0)
+        if (pos > 0)
             sum += omega;
         //q is on right halfplane
-        else if (position == 0)
+        else if (pos == 0)
             sum -= omega;
     }
     const double epsilon = 1.0e-10;
     if (fabs(sum) < epsilon)
-        return 1;
+        return IN;
     else
-        return 0;
+        return OUT;
 
 }
 

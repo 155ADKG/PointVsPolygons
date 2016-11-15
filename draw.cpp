@@ -1,5 +1,4 @@
 #include "draw.h"
-#include "algorithms.h"
 
 Draw::Draw(QWidget *parent) :
     QWidget(parent)
@@ -8,20 +7,34 @@ Draw::Draw(QWidget *parent) :
 
 void Draw::mousePressEvent(QMouseEvent *e)
 {
+    // Get current cursor cords to point q
     double x = e->pos().x();
     double y = e->pos().y();
 
+
     cursor.setX(x);
     cursor.setY(y);
+    QPointF q(x,y);
+
+    // Call algorithms
+    // TODO: if ray or winding
+    for(int i=0; i<pols.size(); i++){
+        position status = Algorithms::rayAlgorithm(q, pols[i]);
+        qDebug() << "position: " << status;
+        qDebug() << "winding?: " << draw_what;
+    }
+
+
 
     ignoreDrawPols = true;
     repaint();
 
 }
 
+
 void Draw::paintEvent(QPaintEvent *e)
 {
-        const unsigned int r = 10;
+    const unsigned int r = 10;
     QPainter painter(this);
     painter.begin(this);
 

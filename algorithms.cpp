@@ -14,7 +14,7 @@ int Algorithms::getPointLinePosition(const QPointF &p, const QPointF &p1, const 
     const double vy = p.y() - p1.y();
 
     //Test criterion
-    const double t = ux*vx - vx*uy;
+    const double t = ux*vy - vx*uy;
 
     //P is in the left halfplpane
     if (t<0)
@@ -36,7 +36,7 @@ double Algorithms::getTwoVectorsOrientation(const QPointF &p1, const QPointF &p2
     const double vx = p4.x() - p3.x();
     const double vy = p4.y() - p3.y();
 
-    const double pi = atan(1.0);
+    const double pi =2.0*asin(1.0);
     return acos((ux*vx + uy*vy)/(sqrt(ux*ux+uy*uy)*sqrt(vx*vx+vy*vy)))*(180/pi);
 
 }
@@ -115,6 +115,7 @@ position Algorithms::windingAlgorithm(const QPointF &q, TPolygon P)
 
         //Get position of q according to Pi, Pi+1
         int pos = getPointLinePosition(q, P[i], P[i+1]);
+       // qDebug() << "omega:" << omega;
 
         //q is on left halfplane
         if (pos > 0)
@@ -122,12 +123,13 @@ position Algorithms::windingAlgorithm(const QPointF &q, TPolygon P)
         //q is on right halfplane
         else if (pos == 0)
             sum -= omega;
+
     }
-    const double pi = atan(1.0);
-    const double epsilon = 1.0e-10;
+
+    const double epsilon = 1.0e-5;
     if (fabs(sum) < epsilon)
         return OUT;
-    if ((fabs(sum)-fabs(2*pi)) < epsilon)
+    if (fabs((fabs(sum)-360)) < epsilon)
         return IN;
     else
         return ON;

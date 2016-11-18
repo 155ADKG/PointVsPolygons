@@ -16,8 +16,6 @@ MainForm::~MainForm()
 
 void MainForm::on_pushGenerate_clicked()
 {
-    //draw_what = ui->buttonGroup->checkedId();
-    //qDebug() << "TYPE -" << typeAlgorithms;
 
     repaint();
 }

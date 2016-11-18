@@ -14,7 +14,6 @@ class Draw : public QWidget
 {
     Q_OBJECT
 private:
-    TPolygon pol;
     TPolygons pols;
     QPointF cursor;
     bool ignoreDrawPols;

@@ -118,7 +118,6 @@ void Draw::paintEvent(QPaintEvent *e)
     painter.drawEllipse(cursor.x()-r/2, cursor.y()-r/2, r, r);
 
     if (!ignoreDrawPols){
-    pol.clear();
     pols.clear();
     results.clear();
     generatePolygons(rand()%50 + 10);

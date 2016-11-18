@@ -48,7 +48,7 @@ position Algorithms::rayAlgorithm(const QPointF &q, TPolygon P)
     P.push_back(point);
 
     //Process all segments
-    for (int i=0; i<n; i++){
+    for (unsigned int i=0; i<n; i++){
 
         //Get segment points
         QPointF pi = P[i];
@@ -99,7 +99,6 @@ position Algorithms::rayAlgorithm(const QPointF &q, TPolygon P)
 position Algorithms::windingAlgorithm(const QPointF &q, TPolygon P)
 {
 
-    unsigned int n_intersections = 0;
     unsigned int n = P.size();
 
     //get first point, add to the polygon
@@ -109,7 +108,7 @@ position Algorithms::windingAlgorithm(const QPointF &q, TPolygon P)
     double sum = 0;
 
     //process all segments
-    for (int i=0; i<n; i++){
+    for (unsigned int i=0; i<n; i++){
 
         //Get angle between u,v
         double omega = getTwoVectorsOrientation(q, P[i], q, P[i+1]);

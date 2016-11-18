@@ -108,7 +108,7 @@ void Draw::generatePolygons(int n){
 }
 
 
-void Draw::paintEvent(QPaintEvent *e)
+void Draw::paintEvent(QPaintEvent *)
 {
     const unsigned int r = 10;
     QPainter painter(this);

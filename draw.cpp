@@ -19,7 +19,7 @@ void Draw::mousePressEvent(QMouseEvent *e)
     results.clear();
     position status;
     // Call algorithms
-    // TODO: if ray or winding
+    // TODO: if ray or windingreturn
     for(int i=0; i<pols.size(); i++){
         if (draw_what)
             status = Algorithms::windingAlgorithm(q, pols[i]);
@@ -49,12 +49,48 @@ QPoint Draw::generatePoint()
     return point;
 }
 
+
+
 void Draw::generatePolygons(int n){
     TPolygon gen_points;
     for (int i=0;i<n;i++)
     {
         gen_points.push_back(generatePoint());
     }
+    QMap<int, double> omegas;
+    omegas.insert(0,0);
+    for (int i=0;i<(n-2);i++)
+    {
+        if (Algorithms::getPointLinePosition(gen_points[0],gen_points[1],gen_points[i+2]) == 1)
+            omegas.insert(i+1,-1.0*Algorithms::getTwoVectorsOrientation(gen_points[0],gen_points[1],gen_points[0],gen_points[i+2]));
+        else
+            omegas.insert(i+1,Algorithms::getTwoVectorsOrientation(gen_points[0],gen_points[1],gen_points[0],gen_points[i+2]));
+
+
+    }
+
+    QList<double> omg = omegas.values();
+    qSort(omg.begin(),omg.end(),sortByXAsc());
+    TPolygon big_pol;
+    big_pol.push_back(gen_points[0]);
+
+    for (int i=0;i<(n-1);i++)
+    {
+        for (int j=0;j<(n-1);j++)
+        {
+            if (omegas[j] == omg[i])
+            {
+               big_pol.push_back(gen_points[j+1]);
+
+            }
+        }
+
+    }
+
+
+    pol = big_pol;
+    pols.push_back(pol);
+
 }
 
 
@@ -71,22 +107,9 @@ void Draw::paintEvent(QPaintEvent *e)
     pol.clear();
     pols.clear();
     results.clear();
-//    generatePolygons(10);
+    generatePolygons(30);
 
-    QPointF p1(0,rand()%100);QPointF p2(100,100);QPointF p3(200,0);QPointF p4(100,50);
-    pol.push_back(p1);
-    pol.push_back(p2);
-    pol.push_back(p3);
-    pol.push_back(p4);
-    pols.push_back(pol);
 
-    pol.clear();
-    p1.setX(200);p1.setY(100 + rand()%100);p2.setX(100);p2.setY(100);p3.setX(200);p3.setY(0);p4.setX(300);p4.setY(350);
-    pol.push_back(p1);
-    pol.push_back(p2);
-    pol.push_back(p3);
-    pol.push_back(p4);
-    pols.push_back(pol);
     }
 
     const unsigned n = pols.size();

@@ -15,10 +15,12 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainform.cpp \
     algorithms.cpp \
-    draw.cpp
+    draw.cpp \
+    sortbyxasc.cpp
 
 HEADERS  += mainform.h \
     algorithms.h \
-    draw.h
+    draw.h \
+    sortbyxasc.h
 
 FORMS    += mainform.ui

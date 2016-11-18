@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QtGui>
 #include "algorithms.h"
+#include "sortbyxasc.h"
 
 
 typedef QVector<QPointF> TPolygon;

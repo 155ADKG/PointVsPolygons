@@ -1,9 +1,6 @@
 #include "algorithms.h"
 
-//Algorithms::Algorithms(QWidget *parent) :
-//    QWidget(parent)
-//{
-//}
+
 
 int Algorithms::getPointLinePosition(const QPointF &p, const QPointF &p1, const QPointF &p2)
 {
@@ -45,13 +42,14 @@ position Algorithms::rayAlgorithm(const QPointF &q, TPolygon P)
 {
     unsigned int n_intersections = 0;
     unsigned int n = P.size();
-    //get first point, add to the polygon
+
+    //Get first point, add to the polygon
     QPointF point = P[0];
     P.push_back(point);
 
-    //process all segments
-
+    //Process all segments
     for (int i=0; i<n; i++){
+
         //Get segment points
         QPointF pi = P[i];
         QPointF pii = P[i+1];
@@ -69,8 +67,8 @@ position Algorithms::rayAlgorithm(const QPointF &q, TPolygon P)
             if (fabs(y)<1.0e-10)
                 return ON;
 
-
         }
+
         //Test if segment intersect the ray
         if (((yi>0) && (yii<=0)) || ((yi<0) && (yii>=0))){
 
@@ -83,13 +81,14 @@ position Algorithms::rayAlgorithm(const QPointF &q, TPolygon P)
             if (x>0)
                 n_intersections++;
 
-
         }
 
     }
+
     //q inside P
     if (n_intersections%2)
         return IN;
+
     //q outside P
     else
         return OUT;
@@ -102,30 +101,33 @@ position Algorithms::windingAlgorithm(const QPointF &q, TPolygon P)
 
     unsigned int n_intersections = 0;
     unsigned int n = P.size();
+
     //get first point, add to the polygon
     QPointF point = P[0];
     P.push_back(point);
 
     double sum = 0;
-    //process all segments
 
+    //process all segments
     for (int i=0; i<n; i++){
+
         //Get angle between u,v
         double omega = getTwoVectorsOrientation(q, P[i], q, P[i+1]);
 
         //Get position of q according to Pi, Pi+1
         int pos = getPointLinePosition(q, P[i], P[i+1]);
-       // qDebug() << "omega:" << omega;
 
         //q is on left halfplane
         if (pos > 0)
             sum += omega;
+
         //q is on right halfplane
         else if (pos == 0)
             sum -= omega;
 
     }
 
+    //Return
     const double epsilon = 1.0e-5;
     if (fabs(sum) < epsilon)
         return OUT;

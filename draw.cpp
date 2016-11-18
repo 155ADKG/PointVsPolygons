@@ -18,8 +18,8 @@ void Draw::mousePressEvent(QMouseEvent *e)
 
     results.clear();
     position status;
+
     // Call algorithms
-    // TODO: if ray or windingreturn
     for(int i=0; i<pols.size(); i++){
         if (draw_what)
             status = Algorithms::windingAlgorithm(q, pols[i]);
@@ -30,8 +30,6 @@ void Draw::mousePressEvent(QMouseEvent *e)
             results.push_back(true);
         else
             results.push_back(false);
-        qDebug() << "winding?: " << draw_what;
-        qDebug() << "position: " << status;
 
     }
 
@@ -52,11 +50,15 @@ QPoint Draw::generatePoint()
 
 
 void Draw::generatePolygons(int n){
+
+    //Generate points
     TPolygon gen_points;
     for (int i=0;i<n;i++)
     {
         gen_points.push_back(generatePoint());
     }
+
+    //Calculate angles from first two points
     QMap<int, double> omegas;
     omegas.insert(0,0);
     for (int i=0;i<(n-2);i++)
@@ -69,12 +71,16 @@ void Draw::generatePolygons(int n){
 
     }
 
+    //Sort angles
     QList<double> omg = omegas.values();
     qSort(omg.begin(),omg.end(),sortByXAsc());
+
+    //Insert first point into polygon
     TPolygon big_pol;
     big_pol.push_back(gen_points[0]);
 
 
+    //Insert sorted points into polygon
     for (int i=0;i<(n-1);i++)
     {
         for (int j=0;j<(n-1);j++)
@@ -82,9 +88,13 @@ void Draw::generatePolygons(int n){
             if (omegas[j] == omg[i])
             {
                big_pol.push_back(gen_points[j+1]);
+
+               //Close current polygon, add to pols
                if ((rand()%3 + 1) == 1 || i == n/2)
                {
                    pols.push_back(big_pol);
+
+                   //Prepare polygon to next points
                    big_pol.clear();
                    big_pol.push_back(gen_points[0]);
                    big_pol.push_back(gen_points[j+1]);
@@ -94,11 +104,6 @@ void Draw::generatePolygons(int n){
         }
 
     }
-
-
-
-//    pol = big_pol;
-//    pols.push_back(pol);
 
 }
 

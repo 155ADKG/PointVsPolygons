@@ -44,7 +44,7 @@ void Draw::mousePressEvent(QMouseEvent *e)
 
 QPoint Draw::generatePoint()
 {
-    QPoint point(rand()%400,rand()%400);
+    QPoint point(rand()%800,rand()%500);
 
     return point;
 }
@@ -74,6 +74,7 @@ void Draw::generatePolygons(int n){
     TPolygon big_pol;
     big_pol.push_back(gen_points[0]);
 
+
     for (int i=0;i<(n-1);i++)
     {
         for (int j=0;j<(n-1);j++)
@@ -81,6 +82,13 @@ void Draw::generatePolygons(int n){
             if (omegas[j] == omg[i])
             {
                big_pol.push_back(gen_points[j+1]);
+               if ((rand()%3 + 1) == 1 || i == n/2)
+               {
+                   pols.push_back(big_pol);
+                   big_pol.clear();
+                   big_pol.push_back(gen_points[0]);
+                   big_pol.push_back(gen_points[j+1]);
+               }
 
             }
         }
@@ -88,8 +96,9 @@ void Draw::generatePolygons(int n){
     }
 
 
-    pol = big_pol;
-    pols.push_back(pol);
+
+//    pol = big_pol;
+//    pols.push_back(pol);
 
 }
 
@@ -107,7 +116,7 @@ void Draw::paintEvent(QPaintEvent *e)
     pol.clear();
     pols.clear();
     results.clear();
-    generatePolygons(30);
+    generatePolygons(rand()%50 + 10);
 
 
     }

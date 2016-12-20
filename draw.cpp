@@ -3,6 +3,7 @@
 Draw::Draw(QWidget *parent) :
     QWidget(parent)
 {
+    //setCursor(Qt::CrossCursor);
 }
 
 void Draw::mousePressEvent(QMouseEvent *e)
@@ -14,7 +15,7 @@ void Draw::mousePressEvent(QMouseEvent *e)
 
     cursor.setX(x);
     cursor.setY(y);
-    QPointF q(x,y);
+    QPoint q(x,y);
 
     results.clear();
     position status;
@@ -42,7 +43,10 @@ void Draw::mousePressEvent(QMouseEvent *e)
 
 QPoint Draw::generatePoint()
 {
-    QPoint point(rand()%800,rand()%500);
+    unsigned int ht = this->height();
+    unsigned int wd = this->width();
+
+    QPoint point(rand()%wd,rand()%ht);
 
     return point;
 }
@@ -145,6 +149,7 @@ void Draw::paintEvent(QPaintEvent *)
     {
         if (results[i] == true)
         {
+            painter.setPen(QPen(Qt::black, 2));
             path.addPolygon(pols[i]);
             painter.drawPolygon(pols[i]);
             painter.fillPath(path, brush);

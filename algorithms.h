@@ -4,7 +4,7 @@
 #include <vector>
 #include <QtGui>
 
-typedef QVector<QPointF> TPolygon;
+typedef QVector<QPoint> TPolygon;
 
 enum position
 {
@@ -16,13 +16,13 @@ enum position
 class Algorithms
 {
     public:
-        static position rayAlgorithm(const QPointF &q, TPolygon P);
+        static position rayAlgorithm(const QPoint &q, TPolygon P);
 
-        static int getPointLinePosition(const QPointF &p, const QPointF &p1, const QPointF &p2);
+        static int getPointLinePosition(const QPoint &p, const QPoint &p1, const QPoint &p2);
 
-        static double getTwoVectorsOrientation(const QPointF &p1, const QPointF &p2, const QPointF &p3, const QPointF &p4);
+        static double getTwoVectorsOrientation(const QPoint &p1, const QPoint &p2, const QPoint &p3, const QPoint &p4);
 
-        static position windingAlgorithm(const QPointF &q, TPolygon P);
+        static position windingAlgorithm(const QPoint &q, TPolygon P);
     Algorithms();
 };
 

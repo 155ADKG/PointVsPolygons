@@ -2,7 +2,7 @@
 
 
 
-int Algorithms::getPointLinePosition(const QPointF &p, const QPointF &p1, const QPointF &p2)
+int Algorithms::getPointLinePosition(const QPoint &p, const QPoint &p1, const QPoint &p2)
 {
     //Vector u = p2-p1 and v = p2-p
     const double ux = p2.x() - p1.x();
@@ -25,7 +25,7 @@ int Algorithms::getPointLinePosition(const QPointF &p, const QPointF &p1, const 
     return -1;
 }
 
-double Algorithms::getTwoVectorsOrientation(const QPointF &p1, const QPointF &p2, const QPointF &p3, const QPointF &p4)
+double Algorithms::getTwoVectorsOrientation(const QPoint &p1, const QPoint &p2, const QPoint &p3, const QPoint &p4)
 {
     //Vector u = p2-p1 and v = p4-p3
     const double ux = p2.x() - p1.x();
@@ -38,21 +38,21 @@ double Algorithms::getTwoVectorsOrientation(const QPointF &p1, const QPointF &p2
 
 }
 
-position Algorithms::rayAlgorithm(const QPointF &q, TPolygon P)
+position Algorithms::rayAlgorithm(const QPoint &q, TPolygon P)
 {
     unsigned int n_intersections = 0;
     unsigned int n = P.size();
 
     //Get first point, add to the polygon
-    QPointF point = P[0];
+    QPoint point = P[0];
     P.push_back(point);
 
     //Process all segments
     for (unsigned int i=0; i<n; i++){
 
         //Get segment points
-        QPointF pi = P[i];
-        QPointF pii = P[i+1];
+        QPoint pi = P[i];
+        QPoint pii = P[i+1];
 
         //Get reduced coordinates
         double xi = pi.x() - q.x();
@@ -96,13 +96,13 @@ position Algorithms::rayAlgorithm(const QPointF &q, TPolygon P)
 
 }
 
-position Algorithms::windingAlgorithm(const QPointF &q, TPolygon P)
+position Algorithms::windingAlgorithm(const QPoint &q, TPolygon P)
 {
 
     unsigned int n = P.size();
 
     //get first point, add to the polygon
-    QPointF point = P[0];
+    QPoint point = P[0];
     P.push_back(point);
 
     double sum = 0;

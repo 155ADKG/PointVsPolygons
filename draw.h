@@ -7,15 +7,15 @@
 #include "sortbyxasc.h"
 
 
-typedef QVector<QPointF> TPolygon;
-typedef QVector<QPolygonF> TPolygons;
+typedef QVector<QPoint> TPolygon;
+typedef QVector<QPolygon> TPolygons;
 
 class Draw : public QWidget
 {
     Q_OBJECT
 private:
     TPolygons pols;
-    QPointF cursor;
+    QPoint cursor;
     bool ignoreDrawPols;
     QVector<bool> results;
     bool draw_what = false;
@@ -30,7 +30,7 @@ public:
     QPoint generatePoint();
     void generatePolygons(int n);
     void setDrawWhat(bool draw_what_){ draw_what = draw_what_; }
-    QPointF & getCursor(){ return cursor; }
+    QPoint & getCursor(){ return cursor; }
 
 signals:
 

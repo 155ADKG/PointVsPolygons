@@ -1,5 +1,6 @@
 #include "mainform.h"
 #include "ui_mainform.h"
+#include "draw.h"
 
 MainForm::MainForm(QWidget *parent) :
     QWidget(parent),
@@ -16,7 +17,6 @@ MainForm::~MainForm()
 
 void MainForm::on_pushGenerate_clicked()
 {
-
     repaint();
 }
 

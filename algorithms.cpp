@@ -64,7 +64,7 @@ position Algorithms::rayAlgorithm(const QPoint &q, TPolygon P)
 
             //Intersection
             double y = (xii*yi-xi*yii)/(xii-xi);
-            if (fabs(y)<1.0e-10)
+            if (fabs(y)<1.0e-01)
                 return ON;
 
         }
@@ -76,7 +76,7 @@ position Algorithms::rayAlgorithm(const QPoint &q, TPolygon P)
             double x = (xi*yii-xii*yi)/(yii-yi);
 
             //Intersection exists
-            if (fabs(x)<1.0e-10)
+            if (fabs(x)<1.0e-01)
                 return ON;
             if (x>0)
                 n_intersections++;
@@ -127,7 +127,7 @@ position Algorithms::windingAlgorithm(const QPoint &q, TPolygon P)
     }
 
     //Return
-    const double epsilon = 1.0e-5;
+    const double epsilon = 1.0e-1;
     if (fabs(sum) < epsilon)
         return OUT;
     if (fabs((fabs(sum)-360)) < epsilon)

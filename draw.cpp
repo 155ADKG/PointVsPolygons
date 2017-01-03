@@ -12,7 +12,7 @@ void Draw::mousePressEvent(QMouseEvent *e)
     double x = e->pos().x();
     double y = e->pos().y();
 
-
+qDebug()<< "x: "<< x<<"  y: "<<y;
     cursor.setX(x);
     cursor.setY(y);
     QPoint q(x,y);
@@ -125,7 +125,28 @@ void Draw::paintEvent(QPaintEvent *)
     pols.clear();
     results.clear();
     generatePolygons(rand()%50 + 10);
+//    TPolygon pol1;
+//    QPoint p1(1,1);
+//    QPoint p2(101,1);
+//    QPoint p3(101,101);
+//    QPoint p4(1,101);
+//    pol1.push_back(p1);
+//    pol1.push_back(p2);
+//    pol1.push_back(p3);
+//    pol1.push_back(p4);
 
+//    TPolygon pol2;
+//    QPoint pp1(201,1);
+//    QPoint pp2(101,1);
+//    QPoint pp3(101,101);
+//    QPoint pp4(201,101);
+//    pol2.push_back(pp1);
+//    pol2.push_back(pp2);
+//    pol2.push_back(pp3);
+//    pol2.push_back(pp4);
+
+//    pols.push_back(pol1);
+//    pols.push_back(pol2);
 
     }
 

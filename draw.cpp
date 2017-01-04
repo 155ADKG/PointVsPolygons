@@ -56,6 +56,7 @@ QPoint Draw::generatePoint()
 void Draw::generatePolygons(int n){
 
     //Generate points
+    pols.clear();
     TPolygon gen_points;
     for (int i=0;i<n;i++)
     {
@@ -122,9 +123,16 @@ void Draw::paintEvent(QPaintEvent *)
     painter.drawEllipse(cursor.x()-r/2, cursor.y()-r/2, r, r);
 
     if (!ignoreDrawPols){
-    pols.clear();
-    results.clear();
-    generatePolygons(rand()%50 + 10);
+
+        results.clear();
+
+        if (push_gen){
+            generatePolygons(rand()%50 + 10);
+        }
+
+        qDebug() << pols;
+
+
 //    TPolygon pol1;
 //    QPoint p1(1,1);
 //    QPoint p2(101,1);
@@ -180,4 +188,5 @@ void Draw::paintEvent(QPaintEvent *)
 
     painter.end();
     ignoreDrawPols=false;
+    push_gen=false;
 }

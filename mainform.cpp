@@ -74,9 +74,9 @@ void MainForm::on_pushLoad_clicked()
                 for(QXmlStreamAttributes::Iterator it=attr.begin(); it < attr.end(); it++)
                 {
                     if(it->name().toString() == "x"){
-                        p.setX(it->value().toInt());
+                        p.setX(it->value().toString().toInt());
                     }else if (it->name().toString() == "y"){
-                        p.setY(it->value().toInt());
+                        p.setY(it->value().toString().toInt());
                     }
                 }
                 pol.push_back(p);
